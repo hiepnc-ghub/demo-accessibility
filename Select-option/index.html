@@ -35,6 +35,9 @@
             width: 50%;
             padding: 0 15px;
         }
+        .active {
+            background-color: gray;
+        }
     </style>
 </head>
 <body style="margin-top: 30px">
@@ -42,7 +45,7 @@
     <a href="../index.html" type="button" class="btn btn-primary" style="margin-bottom: 10px;">Back</a>
         <div class="row" style="height: 200px;">
             <div class="col-5 non-accessibility left">
-                <div v-clickoutside="onClickout" class="select-custom" :id="nameSelect">
+                <div class="select-custom" :id="nameSelect">
                     <label class="lableClass">
                         No accessibility
                     </label>
@@ -68,13 +71,21 @@
                 <button type="button" class="btn btn-primary" onclick="handleClick()">Có accessibility</button>
             </div>
             <div class="col-5 accessibility right" style="display: none">
-                <label for="" style="display: block;">Accessibility</label>
-                <select name="" id="" style="width: 50%">
-                    <option value="1">Car1</option>
-                    <option value="2">Car2</option>
-                    <option value="3">Car3</option>
-                    <option value="4">Car4</option>
-                </select>
+                <div class="select-custom" :id="nameSelect">
+                    <label class="lableClass">
+                        Accessibility
+                    </label>
+                    <div class="select__custom" >
+                        <div class="select__dropdown-toggle" onclick="showSelectOptions1()" tabindex="0">
+                            <div class="select__selected-options">
+                                <span class="select__selected" :value="Car1">Car1</span>
+                            </div>
+                            <div class="select__items" id="list-item">
+                        
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -96,7 +107,8 @@
             <div class="col-1"></div>
             <div class="col-5 right">
                 <h2>Non-Accessibility</h2>
-                <img src="./select-option2.PNG" alt="">
+                <img src="./select-option2.PNG" alt="" style="margin-bottom: 20px">
+                <img src="./select-option3.PNG" alt="">
             </div>
         </div>
     </div>
@@ -107,6 +119,50 @@
 
     <script>
         var ariaLabel = document.querySelector('.right');
+        var selectBox = document.querySelector('.accessibility .select__dropdown-toggle');
+        let currentItem = 0;
+        let listItemDropdown = [
+            { name: "Car 1" , value: "car1" },
+            { name: "Car 2" , value: "car2" },
+            { name: "Car 3" , value: "car3" }
+        ]
+        selectBox.addEventListener("keydown", function (e) {
+            if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
+                showSelectOptions1();
+                document.querySelector('.accessibility .select__selected-options .select__selected').innerHTML = listItemDropdown[currentItem].name;
+            }
+            if (e.keyCode === 38) { // up
+                currentItem -= 1;
+                if (currentItem <= 0) {
+                    currentItem = 0;
+                }
+            }
+            if (e.keyCode === 40) { // down
+                currentItem += 1;
+                if (currentItem >= listItemDropdown.length-1) {
+                    currentItem = listItemDropdown.length-1;
+                }
+            }
+            setActive();
+        });
+
+        function setActive() {
+            $('.accessibility .select__items .item').removeClass('active');
+            document.querySelectorAll('.accessibility .select__items .item')[currentItem].classList.add('active');
+        }
+        function renderList(){
+            const listItem = document.getElementById('list-item');
+            let html = '';
+            listItemDropdown.forEach((list,index) =>{
+                html += `<div class="item" :value="${list.name}" onclick="selectOption1('${index}', '${list.name}')">${list.name}</div>`
+            });
+            
+
+            listItem.innerHTML = html
+        }
+
+        renderList();
+
         function handleClick(val) {
             if (!val) {
                 ariaLabel.style.display = "block";
@@ -132,12 +188,36 @@
                 document.querySelector('.select__items').classList.add("open");
             }
         }
+        function showSelectOptions1() {
+            let optionsScrollHeight = document.querySelector('.accessibility .select__items').scrollHeight;
+            let optionsClientHeight = document.querySelector('.accessibility .select__items').clientHeight;
+            if (optionsClientHeight > 0) {
+                document.querySelector('.accessibility .select__items').style.height = 0;
+                document.querySelector('.accessibility .select__items').classList.remove("open");
+            } else {
+                document.querySelector('.accessibility .select__items').style.height = optionsScrollHeight + 'px';
+                if (optionsScrollHeight > 350) {
+                    document.querySelector('.accessibility .select__items').style.overflowY = 'scroll';
+                }
+                document.querySelector('.accessibility .select__items').classList.add("open");
+            }
+        }
 
         function selectOption(val) {
             document.querySelector('.select__items .item').classList.add('no-hover');
             document.querySelector('.select__selected-options .select__selected').innerHTML = val;
+            this.setActive();
             setTimeout(() => {
                 document.querySelector('.select__items .item').classList.remove('no-hover');
+            }, 500);
+        }
+        function selectOption1(index, name) {
+            currentItem = index
+            document.querySelector('.accessibility .select__items .item').classList.add('no-hover');
+            document.querySelector('.accessibility .select__selected-options .select__selected').innerHTML = name;
+            this.setActive();
+            setTimeout(() => {
+                document.querySelector('.accessibility .select__items .item').classList.remove('no-hover');
             }, 500);
         }
     </script>
