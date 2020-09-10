@@ -39,7 +39,7 @@
 </head>
 <body style="margin-top: 30px">
     <div class="container">
-        <div class="row">
+        <div class="row" style="height: 200px;">
             <div class="col-5 non-accessibility left">
                 <div v-clickoutside="onClickout" class="select-custom" :id="nameSelect">
                     <label class="lableClass">
@@ -76,18 +76,45 @@
                 </select>
             </div>
         </div>
+        <div class="row">
+            <div class="col-5 left">
+            </div>
+            <div class="col-2">
+                <button type="button" class="btn btn-primary" onclick="handleClick(true)" tabindex="-1">Solution</button>
+            </div>
+            <div class="col-5 right">
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="row solution" style="display: none; height: 1000px;">
+            <div class="col-5 left" style="margin-left: 50px;">
+                <h2>Accessibility</h2>
+                <img src="./select-option1.PNG" alt="">
+            </div>
+            <div class="col-1"></div>
+            <div class="col-5 right">
+                <h2>Non-Accessibility</h2>
+                <img src="./select-option2.PNG" alt="">
+            </div>
+        </div>
     </div>
 
 
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <script>
         var ariaLabel = document.querySelector('.right');
-        function handleClick() {
-            ariaLabel.style.display = "block";
+        function handleClick(val) {
+            if (!val) {
+                ariaLabel.style.display = "block";
+            } else {
+                var solution = document.querySelector('.solution');
+                if (solution.style.display == 'none') {
+                solution.style.display = 'flex';
+                } else solution.style.display = 'none';
+            }
         }
 
         function showSelectOptions() {

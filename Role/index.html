@@ -15,30 +15,49 @@
     </style>
 </head>
 <body style="margin-top: 30px">
-        <div class="container">
-            <div class="row">
-                <div class="col-5 left">
-                    <ul>
-                        <li id="i1">Item 1</li>
-                        <li id="i2">Item 2</li>
-                        <li id="i3">Item 3</li>
-                    </ul>
-                </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-5 left">
+        <ul>
+          <li id="i1">Item 1</li>
+          <li id="i2">Item 2</li>
+          <li id="i3">Item 3</li>
+        </ul>
+      </div>
 
-                <div class="col-2">
-                    <button type="button" class="btn btn-primary" onclick="handleClick()">Có role</button>
-                </div>
+      <div class="col-2">
+          <button type="button" class="btn btn-primary" onclick="handleClick()">Có role</button>
+      </div>
 
-                <div class="col-5 right" style="display: none">
-                    <br>
-                    <ul role="listbox">
-                        <li tabindex="1" role="option" id="i1">Item 1</li>
-                        <li tabindex="1" role="option" id="i2">Item 2</li>
-                        <li tabindex="1" role="option" id="i3">Item 3</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+      <div class="col-5 right" style="display: none">
+        <ul role="listbox">
+          <li tabindex="1" role="option" id="i1">Item 1</li>
+          <li tabindex="1" role="option" id="i2">Item 2</li>
+          <li tabindex="1" role="option" id="i3">Item 3</li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-5 left">
+      </div>
+      <div class="col-2">
+        <button type="button" class="btn btn-primary" onclick="handleClick(true)" tabindex="-1">Solution</button>
+      </div>
+      <div class="col-5 right">
+      </div>
+    </div>
+    <div class="row solution" style="display: none;">
+      <div class="col-5 left" style="padding: 8px;">
+        <h2>Không có role và tabindex</h2>
+        <img src="./role1.PNG" alt="">
+      </div>
+      <div class="col-2"></div>
+      <div class="col-5 right">
+        <h2>Có role và tabindex</h2>
+        <img src="./role2.PNG" alt="">
+      </div>
+    </div>
+  </div>
 
 
 
@@ -47,10 +66,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script>
-        var ariaLabel = document.querySelector('.right');
-        function handleClick() {
-            ariaLabel.style.display = "block";
-        }
+      var ariaLabel = document.querySelector('.right');
+      function handleClick(val) {
+      if (!val) {
+        ariaLabel.style.display = "block";
+      } else {
+        var solution = document.querySelector('.solution');
+        if (solution.style.display == 'none') {
+          solution.style.display = 'flex';
+        } else solution.style.display = 'none';
+      }
+    }
     </script>
 </body>
 </html>
