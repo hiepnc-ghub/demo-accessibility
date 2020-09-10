@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Select option</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .select__items {
+            height: 0;
+            overflow: hidden;
+            z-index: 2;
+            border: 1px solid black; 
+            width: 50%;
+        }
+
+        .item, select, option {
+            padding: 0 15px;
+        }
+
+        .item:not(.no-hover):hover,
+        .activated {
+            color: #fff;
+            background-color: #a1a1a1;
+        }
+
+        .open {
+            max-height: 350px;
+            border: 1px solid black;
+        }
+
+        .select__selected-options {
+            border: 1px solid black; 
+            border-bottom: none; 
+            width: 50%;
+            padding: 0 15px;
+        }
+    </style>
+</head>
+<body style="margin-top: 30px">
+    <div class="container">
+        <div class="row">
+            <div class="col-5 non-accessibility left">
+                <div v-clickoutside="onClickout" class="select-custom" :id="nameSelect">
+                    <label class="lableClass">
+                        No accessibility
+                    </label>
+                    <div class="select__custom" >
+                        <div class="select__dropdown-toggle" onclick="showSelectOptions()">
+                            <div class="select__selected-options">
+                                <span class="select__selected" :value="Car1">Car1</span>
+                            </div>
+                            <div class="select__items">
+                                <div class="item d-none" :value="''" disabled selected>Select options</div>
+                                <div class="item" :value="Car1" onclick="selectOption('Car1')">Car1
+                                </div>
+                                <div class="item" :value="Car2" onclick="selectOption('Car2')">Car2
+                                </div>
+                                <div class="item" :value="Car3" onclick="selectOption('Car3')">Car3
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <button type="button" class="btn btn-primary" onclick="handleClick()">Có accessibility</button>
+            </div>
+            <div class="col-5 accessibility right" style="display: none">
+                <label for="" style="display: block;">Accessibility</label>
+                <select name="" id="" style="width: 50%">
+                    <option value="1">Car1</option>
+                    <option value="2">Car2</option>
+                    <option value="3">Car3</option>
+                    <option value="4">Car4</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script>
+        var ariaLabel = document.querySelector('.right');
+        function handleClick() {
+            ariaLabel.style.display = "block";
+        }
+
+        function showSelectOptions() {
+            let optionsScrollHeight = document.querySelector('.select__items').scrollHeight;
+            let optionsClientHeight = document.querySelector('.select__items').clientHeight;
+            if (optionsClientHeight > 0) {
+                document.querySelector('.select__items').style.height = 0;
+                document.querySelector('.select__items').classList.remove("open");
+            } else {
+                document.querySelector('.select__items').style.height = optionsScrollHeight + 'px';
+                if (optionsScrollHeight > 350) {
+                    document.querySelector('.select__items').style.overflowY = 'scroll';
+                }
+                document.querySelector('.select__items').classList.add("open");
+            }
+        }
+
+        function selectOption(val) {
+            document.querySelector('.select__items .item').classList.add('no-hover');
+            document.querySelector('.select__selected-options .select__selected').innerHTML = val;
+            setTimeout(() => {
+                document.querySelector('.select__items .item').classList.remove('no-hover');
+            }, 500);
+        }
+    </script>
+</body>
+</html>
