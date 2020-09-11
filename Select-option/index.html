@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Demo Select option</title>
+    <!-- <title>Demo Select option</title> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
         .select__items {
@@ -11,7 +11,7 @@
             overflow: hidden;
             z-index: 2;
             border: 1px solid black; 
-            width: 50%;
+            width: 100%;
         }
 
         .item, select, option {
@@ -32,7 +32,7 @@
         .select__selected-options {
             border: 1px solid black; 
             border-bottom: none; 
-            width: 50%;
+            width: 100%;
             padding: 0 15px;
         }
         .active {
@@ -52,15 +52,15 @@
                     <div class="select__custom" >
                         <div class="select__dropdown-toggle" onclick="showSelectOptions()">
                             <div class="select__selected-options">
-                                <span class="select__selected" :value="Car1">Car1</span>
+                                <span class="select__selected" :value="Car1">Car 1</span>
                             </div>
                             <div class="select__items">
                                 <div class="item d-none" :value="''" disabled selected>Select options</div>
-                                <div class="item" :value="Car1" onclick="selectOption('Car1')">Car1
+                                <div class="item" :value="Car1" onclick="selectOption('Car1')">Car 1
                                 </div>
-                                <div class="item" :value="Car2" onclick="selectOption('Car2')">Car2
+                                <div class="item" :value="Car2" onclick="selectOption('Car2')">Car 2
                                 </div>
-                                <div class="item" :value="Car3" onclick="selectOption('Car3')">Car3
+                                <div class="item" :value="Car3" onclick="selectOption('Car3')">Car 3
                                 </div>
                             </div>
                         </div>
